@@ -1,4 +1,10 @@
-import { AppBskyEmbedImages, AppBskyFeedDefs, default as bsky, default as pkg } from '@atproto/api'
+import {
+  AppBskyEmbedImages,
+  AppBskyEmbedExternal,
+  AppBskyFeedDefs,
+  default as bsky,
+  default as pkg,
+} from '@atproto/api'
 import * as dotenv from 'dotenv'
 import express from 'express'
 import { exit } from 'process'
@@ -63,8 +69,14 @@ app.get('/', async (req, res) => {
       if ('text' in postView.record) {
         text = postView.record.text as string
       }
-
       let thumb = ''
+      if (postView.embed?.media) {
+        const media = postView.embed?.media as AppBskyEmbedImages.Main
+        if ('thumb' in media.images[0]) {
+          thumb = media.images[0].thumb as string
+        }
+      }
+
       if (postView.embed?.images) {
         const images = postView.embed?.images as [AppBskyEmbedImages.ViewImage]
         if (images[0] != undefined) {
