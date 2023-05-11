@@ -1,0 +1,22 @@
+# fly.toml app configuration file generated for skeet-link on 2023-05-11T10:26:46-06:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "skeet-link"
+primary_region = "den"
+kill_signal = "SIGINT"
+kill_timeout = 5
+
+[env]
+  PORT = "3000"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250

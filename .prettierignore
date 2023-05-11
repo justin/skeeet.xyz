@@ -1,0 +1,15 @@
+/lib
+.editorconfig
+.gitingore
+.npmignore
+.prettierignore
+.tool-versions
+*.log
+*.lock
+**/vendor
+**/Pods
+**/build
+**/lib
+.env*
+.envrc
+.dockerignore

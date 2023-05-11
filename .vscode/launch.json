@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "name": "Debug Jest Tests",
+      "request": "launch",
+      "args": [
+        "--runInBand",
+        "--watchAll=false",
+        "--testNamePattern",
+        "${jest.testNamePattern}",
+        "--runTestsByPath",
+        "${jest.testFile}"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "program": "${workspaceFolder}/node_modules/.bin/jest"
+    },
+    {
+      "type": "node-terminal",
+      "name": "Run skeet.link",
+      "request": "launch",
+      "command": "npm run start",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Build TypeScript Files"
+    }
+  ]
+}

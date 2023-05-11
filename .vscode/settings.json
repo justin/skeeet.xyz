@@ -1,0 +1,33 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/tsconfig.tsbuildinfo": true,
+    "**/lib": true,
+    "**/node_modules": true,
+    // Hide derived JavaScript files
+    "**/*.js": { "when": "$(basename).ts" },
+    "**/**.js": { "when": "$(basename).tsx" }
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "jestrunner.jestCommand": "npm test --",
+  "jestrunner.debugOptions": {
+    "program": "./node_modules/jest/bin/jest.js",
+    "env": {
+      "NODE_OPTIONS": "--experimental-vm-modules"
+    }
+  },
+  "jest.jestCommandLine": "npm test --",
+  "jest.nodeEnv": {
+    "NODE_OPTIONS": "--experimental-vm-modules"
+  },
+  "prettier.configPath": "./.prettierrc",
+  "prettier.ignorePath": "./.prettierignore",
+  "prettier.prettierPath": "./node_modules/prettier",
+  "typescript.tsdk": "./node_modules/typescript/lib"
+}

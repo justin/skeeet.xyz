@@ -1,0 +1,27 @@
+# EditorConfig Info
+# https://editorconfig.org/
+
+root = true
+
+[*]
+# Unix-style newlines
+end_of_line = lf 
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_size = 4
+indent_style = space
+max_line_length = 100
+
+# BBEdit Specific
+# https://www.barebones.com/support/technotes/editorconfig.html
+x-typographers-quotes: false
+x-balance-while-typing: true
+x-font-name: "Operator Mono SSm"
+x-font-size: 16
+
+[*.{md,markdown}]
+trim_trailing_whitespace = false
+
+[.swift]
+max_line_length = 150
