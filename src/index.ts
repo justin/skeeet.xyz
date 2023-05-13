@@ -1,10 +1,4 @@
-import {
-  AppBskyEmbedImages,
-  AppBskyEmbedExternal,
-  AppBskyFeedDefs,
-  default as bsky,
-  default as pkg,
-} from '@atproto/api'
+import { AppBskyEmbedImages, AppBskyFeedDefs, default as bsky, default as pkg } from '@atproto/api'
 import * as dotenv from 'dotenv'
 import express from 'express'
 import { exit } from 'process'
@@ -31,7 +25,7 @@ if (result.success) {
 }
 
 const app = express()
-app.set('etag', false) // turn off
+app.set('view engine', 'hbs')
 app.use(express.json())
 
 app.get('/', async (req, res) => {
@@ -84,37 +78,15 @@ app.get('/', async (req, res) => {
         }
       }
 
-      const html = `<html dir="ltr" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
-    <link rel="shortcut icon" href="${postView.author.avatar}" />
-    <link rel="apple-touch-icon" sizes="192x192" href="${postView.author.avatar}" />
-    <title>${text}</title>
-    <meta property="og:title" content="${postView.author.displayName} (${postView.author.handle})" />
-    <meta property="og:type" content="article" />
-    <meta property="og:image" content="${thumb}" />
-    <meta property="og:description" content="${text}" />
-    <meta name="description" content="${text}" />
-    <meta content="https://twitter.com/x/status/x" property="og:url">
-    <style>
-      body {
-        background: $fff;
-      }
-      @media (prefers-color-scheme: dark) {
-        body {
-          background: #000;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <script>window.location.replace("${parsedUrl.toString()}");</script>
-  </body>
-</html>`
-      res.set('Cache-Control', 'max-age=600')
       res.set('Content-Type', 'text/html; charset=UTF-8')
-      res.send(html)
+      const options = {
+        title: `${postView.author.displayName} (${postView.author.handle})`,
+        text: text,
+        avatar: postView.author.avatar,
+        thumb: thumb,
+        link: parsedUrl.toString(),
+      }
+      res.render('skeet', options)
     }
   } catch (err) {
     res.status(400).send(`Invalid URL ${url} ${err}`)
