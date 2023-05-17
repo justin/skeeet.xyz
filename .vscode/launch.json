@@ -2,6 +2,19 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "name": "Nodemon: skeet.link",
+      "program": "${workspaceFolder}/lib/index.js",
+      "request": "launch",
+      "restart": true,
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/nodemon",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Watch TypeScript Files"
+    },
+    {
       "type": "node",
       "name": "Debug Jest Tests",
       "request": "launch",
@@ -16,7 +29,8 @@
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "program": "${workspaceFolder}/node_modules/.bin/jest"
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "preLaunchTask": "Build TypeScript Files"
     },
     {
       "type": "node-terminal",

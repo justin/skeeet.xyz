@@ -19,9 +19,9 @@
       },
       "type": "shell",
       "isBackground": true,
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": ["$tsc-watch"],
       "presentation": {
-        "reveal": "always",
+        "reveal": "silent",
         "clear": true,
         "close": true
       },
