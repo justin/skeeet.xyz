@@ -14,6 +14,7 @@ jobs:
     env:
       BSKY_USERNAME: ${{ secrets.BSKY_USERNAME }}
       BSKY_PASSWORD: ${{ secrets.BSKY_PASSWORD }}
+      PORT: 3000
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

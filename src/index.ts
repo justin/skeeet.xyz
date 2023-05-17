@@ -24,6 +24,7 @@ if (result.success) {
 }
 
 const app = express()
+const port = process.env.PORT
 app.set('view engine', 'hbs')
 app.use(express.json())
 
@@ -60,6 +61,6 @@ app.get('/', async (req, res) => {
   }
 })
 
-app.listen(3000, () => {
-  console.log('Server listening on port 3000')
+app.listen(port, () => {
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
 })
