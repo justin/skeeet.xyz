@@ -29,5 +29,7 @@
   "prettier.configPath": "./.prettierrc",
   "prettier.ignorePath": "./.prettierignore",
   "prettier.prettierPath": "./node_modules/prettier",
-  "typescript.tsdk": "./node_modules/typescript/lib"
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.implementationsCodeLens.enabled": true
 }
