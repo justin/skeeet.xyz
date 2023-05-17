@@ -1,19 +1,29 @@
+import { default as bsky } from '@atproto/api'
+const { BskyAgent } = bsky
+import * as dotenv from 'dotenv'
+import { parseProfile } from '../../src/parsers/profile'
+
 describe('Parsing profiles', () => {
-  it('should pass', () => {
-    expect(true).toBe(true)
+  const agent = new BskyAgent({
+    service: 'https://bsky.social',
   })
 
-  //   it('parse a user profile', async () => {
-  //     const profile = await parseProfile('https://staging.bsky.app/profile/chinchillazilla.hellthread.vet')
-  //     expect(profile).toBeDefined()
-  //   })
-  //   it('should fail to parse a non-profile URL', async () => {
-  //     try {
-  //       await parseProfile('https://staging.bsky.app/profile/chinchillazilla.hellthread.vet/post/3jvhqs4j6kw2n')
-  //       expect(true).toBe(false)
-  //     } catch (e) {
-  //       const error = e as Error
-  //       expect(error.message).toBe('Not a profile URL')
-  //     }
-  //   })
+  beforeAll(async () => {
+    dotenv.config()
+    const result = await agent.login({
+      identifier: process.env.BSKY_USERNAME!,
+      password: process.env.BSKY_PASSWORD!,
+    })
+
+    if (!result.success) {
+      fail('Authentication failed')
+    }
+  })
+  it('parse a user profile', async () => {
+    const profile = await parseProfile('https://staging.bsky.app/profile/chinchillazilla.hellthread.vet', agent)
+    expect(profile).toBeDefined()
+
+    expect(profile.displayName.length).toBeGreaterThan(0)
+    expect(profile.handle.length).toBeGreaterThan(0)
+  })
 })
