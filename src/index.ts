@@ -70,7 +70,6 @@ app.get('/', async (req, res) => {
 
   try {
     const pathName = new URL(url).pathname.split('/')
-    console.debug(pathName)
     switch (pathName.length) {
       case 3: {
         const result = await parseProfile(url, agent)
