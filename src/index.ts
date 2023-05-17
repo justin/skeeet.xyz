@@ -28,6 +28,7 @@ const app = express()
 const port = process.env.PORT
 app.set('view engine', 'hbs')
 app.use(express.json())
+app.use(express.static('public/images'))
 
 app.post('/api/skeet', async (req, res) => {
   const url = req.body.url as string
@@ -62,7 +63,8 @@ app.post('/api/profile', async (req, res) => {
 app.get('/', async (req, res) => {
   const url = req.query.url as string
   if (!url) {
-    res.status(400).send('URL is required')
+    res.set('Content-Type', 'text/html; charset=UTF-8')
+    res.render('index')
     return
   }
 

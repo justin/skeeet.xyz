@@ -1,0 +1,62 @@
+<html dir='ltr' lang='en'>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <meta
+      name='viewport'
+      content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover'
+    />
+    <title>Share Bluesky Links via iMessage</title>
+    <meta property='og:title' content='skeeet.xyz' />
+    <meta property='og:type' content='website' />
+    <meta property='og:description' content='Share rich Bluesky links via iMessage, Signal, and more.' />
+    <meta name='description' content='Share rich Bluesky links via iMessage, Signal, and more.' />
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding:
+      15pt; } .container { width: 75%; margin: 0 auto; } @media (max-width: 767px) { .container { width: 100%; } }
+      input[type="text"], button.submit { padding: 12px 20px; border-radius: 8px; border: 1px solid #ccc; }
+
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <h1>Better Bluesky Sharing</h1>
+
+      <p>You know how if you share a Bluesky link in iMessage it doesn't include any useful info about what you are
+        linking to? Not really great. I fixed that.
+      </p>
+
+      <p>
+        <a href='screenshot.png'>
+          <img
+            src='screenshot.png'
+            alt='A screenshot showing a normal screenshot of a Skeet compared to using this site'
+            width='75%'
+          /></a>
+      </p>
+      <label>
+
+        <input type='text' id='urlInput' required placeholder='Enter a Bluesky URL' />
+      </label>
+      <button onclick='convertUrl()' class='submit'>Convert Skeet</button>
+      <p id='convertedUrl'></p>
+
+      <p>If you are on iOS or macOS you can use one of these shortcuts I made.</p>
+      <p><a href='https://www.icloud.com/shortcuts/cd12da18dcf6464894e2bdd755f0629b'>Share Skeet Link Shortcut</a></p>
+      <p><a href='https://www.icloud.com/shortcuts/fb4fe172572d47468068fb62dc343da1'>Copy Skeet Link Shortcut</a></p>
+
+      <footer>
+        <h4>Made by Justin Williams</h4>
+        <p><a href='https://staging.bsky.app/profile/jww.wtf'>Follow me on Bluesky (@jww.wtf)</a></p>
+        <p><a href='https://github.com/justin/skeeet.xyz'>Check out the really bad TypeScript I wrote for this thing.</a></p>
+      </footer>
+    </div>
+  </body>
+
+  <script type='text/javascript'>
+    function convertUrl() { const url = document.getElementById("urlInput").value; const convertedUrl =
+    `https://skeeet.xyz?url=${url}`; const convertedUrlElement = document.getElementById("convertedUrl");
+    convertedUrlElement.textContent = convertedUrl; const copyButton = document.createElement("button");
+    copyButton.textContent = "Copy New Skeet URL"; copyButton.onclick = function() {
+    navigator.clipboard.writeText(convertedUrl); }; convertedUrlElement.appendChild(copyButton); }
+  </script>
+</html>
