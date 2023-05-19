@@ -1,6 +1,10 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background: $fff;
+  background: rgb(243, 249, 255);
+}
+
+a {
+  color: rgb(59, 131, 244);
 }
 
 article {
@@ -8,6 +12,9 @@ article {
   padding: 10pt;
   max-width: 600px;
   margin: 0 auto;
+  border-radius: 14px;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 img#avatar {
@@ -15,7 +22,15 @@ img#avatar {
   height: 75px;
 }
 
-section > h1 {
+section#profile {
+  display: flex;
+  align-items: center;
+}
+
+.display-name {
+  margin-left: 10px; /* adjust the margin as needed */
+}
+.display-name > h1 {
   font-size: 17px;
   letter-spacing: 0.25px;
   font-weight: 700;
@@ -24,7 +39,7 @@ section > h1 {
   margin: 0;
 }
 
-section > h2 {
+.display-name > h2 {
   font-size: 15px;
   letter-spacing: 0.25px;
   font-weight: 400;
@@ -71,6 +86,24 @@ section#meta {
   margin-right: 10px;
 }
 
+footer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px 0px;
+}
+
+footer > p {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(84, 86, 100);
+}
+
+footer > p > a {
+  color: rgb(84, 86, 100);
+}
+
 @media (max-width: 767px) {
   main {
     width: 100%;
@@ -83,18 +116,37 @@ section#meta {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: #000;
+    background: rgb(34, 34, 34);
   }
 
-  a {
-    color: #fff;
+  article {
+    background: rgb(0, 0, 0);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 2px 4px rgba(255, 255, 255, 0.3);
   }
 
-  section > h1 {
-    color: #fff;
+  a,
+  footer > p > a {
+    color: rgb(230, 237, 243);
+  }
+
+  a:hover,
+  footer > p > a:hover {
+    color: rgb(59, 131, 244);
+  }
+
+  .display-name > h1 {
+    color: rgb(230, 237, 243);
   }
 
   section#body {
-    color: #fff;
+    color: rgb(230, 237, 243);
+  }
+
+  .display-name > h2,
+  section#meta,
+  section#date,
+  footer > p {
+    color: rgb(124, 133, 144);
   }
 }

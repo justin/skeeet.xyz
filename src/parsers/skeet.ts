@@ -1,5 +1,5 @@
 import { AppBskyEmbedImages, AppBskyFeedDefs, BskyAgent, AppBskyFeedPost } from '@atproto/api'
-
+import linkifyStr from 'linkify-string'
 type SkeetPayload = {
   title: string
   displayName: string
@@ -67,11 +67,17 @@ export async function parseSkeet(url: string, agent: BskyAgent, locale = default
       time = date
     }
 
+    const links = {
+      validate: {
+        url: (value: string) => /^(http|https):\/\//.test(value),
+      },
+    }
+
     const options = {
       title: `${postView.author.displayName} (${postView.author.handle})`,
       displayName: postView.author.displayName,
       handle: postView.author.handle,
-      text: text,
+      text: linkifyStr(text, links),
       date: date?.toLocaleDateString(parsedLocale, { year: 'numeric', month: 'long', day: 'numeric' }),
       time: time?.toLocaleTimeString(parsedLocale, { hour: 'numeric', minute: 'numeric' }),
       avatar: postView.author.avatar,
