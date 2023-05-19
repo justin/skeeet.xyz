@@ -1,10 +1,9 @@
-import { default as bsky } from '@atproto/api'
+import { BskyAgent } from '@atproto/api'
 import * as dotenv from 'dotenv'
 import express from 'express'
 import { exit } from 'process'
 import { parseSkeet } from './parsers/skeet.js'
 import { parseProfile } from './parsers/profile.js'
-const { BskyAgent } = bsky
 
 dotenv.config()
 
@@ -91,6 +90,10 @@ app.get('/api/health', async (req, res) => {
   res.send('OK')
 })
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`)
-})
+if (import.meta.env.PROD) {
+  app.listen(port, () => {
+    console.log(`[server]: Server is running at http://localhost:${port}`)
+  })
+}
+
+export const viteNodeApp = app

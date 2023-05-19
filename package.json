@@ -9,16 +9,17 @@
   "license": "ISC",
   "scripts": {
     "start": "node lib/index.js",
-    "dev": "concurrently \"npx tsc -p tsconfig.json --watch\" \"nodemon -q lib/index.js\"",
+    "dev": "vite",
     "clean": "rm -rf node_modules && rm -rf ./lib && rm -rf tsconfig.tsbuildinfo && npm install",
-    "build": "npx tsc -b tsconfig.json",
+    "build": "vite build",
     "watch": "npx tsc -p tsconfig.json --watch",
     "package": "npm run clean && npm run build && npm pack --dry-run",
     "lint": "npx eslint -c .eslintrc.json",
     "lint-fix": "npx eslint --fix -c .eslintrc.json",
     "format": "npx prettier --write './(src|__tests__)/**/*.ts'",
     "format-check": "npx prettier --check './(src|__tests__)/**/*.ts'",
-    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "test-watch": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --watch"
   },
   "dependencies": {
@@ -34,16 +35,18 @@
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
-    "concurrently": "^8.0.1",
+    "@vitest/coverage-c8": "^0.31.1",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.17",
     "jest": "^29.4.3",
-    "nodemon": "^2.0.22",
     "prettier": "^2.8.4",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vite": "^4.3.8",
+    "vite-plugin-node": "^3.0.2",
+    "vitest": "^0.31.1"
   }
 }
