@@ -14,11 +14,36 @@
     <meta property='og:description' content='{{text}}' />
     <meta name='description' content='{{text}}' />
     <meta content='https://twitter.com/x/status/x' property='og:url' />
-    <style>
-      body { background: $fff; } @media (prefers-color-scheme: dark) { body { background: #000; } }
-    </style>
+    <link rel='stylesheet' type='text/css' href='/css/skeet.css' />
   </head>
   <body>
-    <script>window.location.replace("{{link}}");</script>
+    <main>
+      <article>
+        <section id='profile'>
+          <img src='{{avatar}}' alt="{{handle}}'s profile picture" id='avatar' />
+          <h1>{{displayName}}</h1>
+          <h2>@{{handle}}</h2>
+        </section>
+        <section id='body'>
+          <p>{{text}}</p>
+
+          {{#if images}}
+            <section id='images'>
+              {{#each images}}
+                <img src='{{this.thumb}}' alt='{{this.alt}}' />
+              {{/each}}
+            </section>
+          {{/if}}
+        </section>
+        <section id='date'>
+          <time>{{date}} at {{time}}</time>
+        </section>
+        <section id='meta'>
+          <span><strong>{{likes}}</strong> Likes</span>
+          <span><strong>{{reskeets}}</strong> Reskeets</span>
+          <span><a href='{{link}}' title='Permanent URL for skeet'>Permalink</a></span>
+        </section>
+      </article>
+    </main>
   </body>
 </html>

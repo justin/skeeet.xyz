@@ -28,7 +28,7 @@ const app = express()
 const port = process.env.PORT
 app.set('view engine', 'hbs')
 app.use(express.json())
-app.use(express.static('public/images'))
+app.use(express.static('public'))
 
 app.post('/api/skeet', async (req, res) => {
   const url = req.body.url as string

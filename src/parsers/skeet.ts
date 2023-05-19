@@ -3,12 +3,16 @@ const { AppBskyFeedPost } = pkg
 
 type SkeetPayload = {
   title: string
+  displayName: string
+  handle: string
   text: string
+  date: string | undefined
+  time: string | undefined
   avatar: string
   thumb: string | undefined
   link: string
+  images: AppBskyEmbedImages.ViewImage[]
 }
-
 export async function parseSkeet(url: string, agent: BskyAgent): Promise<SkeetPayload> {
   const parsedUrl = new URL(url)
   const path = parsedUrl.pathname
@@ -40,21 +44,36 @@ export async function parseSkeet(url: string, agent: BskyAgent): Promise<SkeetPa
       }
     }
 
+    let images: AppBskyEmbedImages.ViewImage[] = []
     if (postView.embed?.images) {
-      const images = postView.embed?.images as [AppBskyEmbedImages.ViewImage]
+      images = postView.embed?.images as [AppBskyEmbedImages.ViewImage]
       if (images[0] != undefined) {
         thumb = images[0].thumb
       }
     }
 
+    let date: Date | undefined
+    let time: Date | undefined
+    if ('createdAt' in postView.record) {
+      console.debug(`Post date: ${postView.record.createdAt as Date}`)
+      date = new Date(Date.parse(postView.record.createdAt as string))
+      time = date
+    }
+
     const options = {
       title: `${postView.author.displayName} (${postView.author.handle})`,
+      displayName: postView.author.displayName,
+      handle: postView.author.handle,
       text: text,
+      date: date?.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+      time: time?.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' }),
       avatar: postView.author.avatar,
       thumb: thumb,
       link: parsedUrl.toString(),
+      likes: postView.likeCount ?? 0,
+      reskeets: postView.reskeetCount ?? 0,
+      images: images,
     } as SkeetPayload
-
     return options
   } else {
     throw new Error(`Failed to get post ${id}`)
