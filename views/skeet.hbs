@@ -7,12 +7,13 @@
     />
     <link rel='shortcut icon' href='{{avatar}}' />
     <link rel='apple-touch-icon' sizes='192x192' href='{{avatar}}' />
-    <title>{{text}}</title>
+    <title>{{{text}}}</title>
     <meta property='og:title' content='{{title}}' />
     <meta property='og:type' content='article' />
     <meta property='og:image' content='{{thumb}}' />
     <meta property='og:description' content='{{text}}' />
     <meta name='description' content='{{text}}' />
+    <meta name='robots' content='noindex' />
     <meta content='https://twitter.com/x/status/x' property='og:url' />
     <link rel='stylesheet' type='text/css' href='/css/skeet.css' />
   </head>
@@ -21,12 +22,13 @@
       <article>
         <section id='profile'>
           <img src='{{avatar}}' alt="{{handle}}'s profile picture" id='avatar' />
-          <h1>{{displayName}}</h1>
-          <h2>@{{handle}}</h2>
+          <div class='display-name'>
+            <h1>{{displayName}}</h1>
+            <h2>@{{handle}}</h2>
+          </div>
         </section>
         <section id='body'>
-          <p>{{text}}</p>
-
+          <p>{{{text}}}</p>
           {{#if images}}
             <section id='images'>
               {{#each images}}
@@ -45,5 +47,10 @@
         </section>
       </article>
     </main>
+    <footer>
+      <p>Made by
+        <a href='https://bsky.app/profiles/jww.wtf'>Justin Williams</a>
+        (<a href='https://github.com/justin/skeeet.xyz'>Source Code</a>)</p>
+    </footer>
   </body>
 </html>
