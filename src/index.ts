@@ -89,6 +89,10 @@ app.get('/', async (req, res) => {
   }
 })
 
+app.get('/api/health', async (req, res) => {
+  res.send('OK')
+})
+
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`)
 })

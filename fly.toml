@@ -20,3 +20,14 @@ kill_timeout = 5
     type = "requests"
     soft_limit = 200
     hard_limit = 250
+
+[checks]
+  [checks.skeet_link_http_check]
+    method = "get"
+    path = "/api/health"
+    port = 3000
+    type = "http"
+    grace_period = "10s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "3s"
