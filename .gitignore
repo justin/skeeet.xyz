@@ -31,6 +31,7 @@ DerivedData
 project.xcworkspace
 Pods
 .xcode.env.local
+.env
 
 # Compiled source
 lib/
