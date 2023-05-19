@@ -9,6 +9,7 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
+    outDir: 'lib',
   },
   plugins: [
     ...VitePluginNode({
