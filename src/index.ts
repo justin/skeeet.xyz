@@ -38,7 +38,7 @@ app.post('/api/skeet', async (req, res) => {
   }
 
   try {
-    const result = await parseSkeet(url, agent)
+    const result = await parseSkeet(url, agent, req.headers['accept-language'])
     res.json(result)
   } catch (err) {
     res.status(400).send(`Invalid URL ${url} ${err}`)
@@ -78,7 +78,7 @@ app.get('/', async (req, res) => {
         break
       }
       default: {
-        const result = await parseSkeet(url, agent)
+        const result = await parseSkeet(url, agent, req.headers['accept-language'])
         res.set('Content-Type', 'text/html; charset=UTF-8')
         res.render('skeet', result)
         break
