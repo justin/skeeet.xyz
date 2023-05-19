@@ -19,7 +19,11 @@ export async function parseSkeet(url: string, agent: BskyAgent, locale = `en-US`
   const parts = path.split('/')
   const actor = parts[2]
   const id = parts[4]
-  const parsedLocale = locale.includes(',') ? locale.split(',')[0] : locale
+  let parsedLocale = locale.includes(',') ? locale.split(',')[0] : locale
+
+  if (parsedLocale.includes('*')) {
+    parsedLocale = `en-US`
+  }
 
   console.debug(`Attempting to build OG tags for ${parsedUrl}`)
 
