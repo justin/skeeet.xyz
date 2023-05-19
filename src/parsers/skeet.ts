@@ -13,13 +13,12 @@ type SkeetPayload = {
   link: string
   images: AppBskyEmbedImages.ViewImage[]
 }
-export async function parseSkeet(url: string, agent: BskyAgent, locale: string | undefined): Promise<SkeetPayload> {
+export async function parseSkeet(url: string, agent: BskyAgent, locale = `en-US`): Promise<SkeetPayload> {
   const parsedUrl = new URL(url)
   const path = parsedUrl.pathname
   const parts = path.split('/')
   const actor = parts[2]
   const id = parts[4]
-  const parsedLocale = locale || `en-US`
 
   console.debug(`Attempting to build OG tags for ${parsedUrl}`)
 
@@ -66,8 +65,8 @@ export async function parseSkeet(url: string, agent: BskyAgent, locale: string |
       displayName: postView.author.displayName,
       handle: postView.author.handle,
       text: text,
-      date: date?.toLocaleDateString(parsedLocale, { year: 'numeric', month: 'long', day: 'numeric' }),
-      time: time?.toLocaleTimeString(parsedLocale, { hour: 'numeric', minute: 'numeric' }),
+      date: date?.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' }),
+      time: time?.toLocaleTimeString(locale, { hour: 'numeric', minute: 'numeric' }),
       avatar: postView.author.avatar,
       thumb: thumb,
       link: parsedUrl.toString(),
