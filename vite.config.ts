@@ -15,7 +15,6 @@ export default defineConfig({
       adapter: 'express',
       appPath: './src/index.ts',
       exportName: 'viteNodeApp',
-
       // Optional, default: 'esbuild'
       // The TypeScript compiler you want to use
       // by default this plugin is using vite default ts compiler which is esbuild

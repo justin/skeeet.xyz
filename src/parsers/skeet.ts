@@ -1,5 +1,4 @@
-import { AppBskyEmbedImages, AppBskyFeedDefs, BskyAgent, default as pkg } from '@atproto/api'
-const { AppBskyFeedPost } = pkg
+import { AppBskyEmbedImages, AppBskyFeedDefs, BskyAgent, AppBskyFeedPost } from '@atproto/api'
 
 type SkeetPayload = {
   title: string

@@ -1,5 +1,5 @@
-import { default as bsky } from '@atproto/api'
-const { BskyAgent } = bsky
+import { BskyAgent } from '@atproto/api'
+import { describe, it, expect, beforeAll } from 'vitest'
 
 import * as dotenv from 'dotenv'
 import { parseSkeet } from '../../src/parsers/skeet'
