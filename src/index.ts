@@ -62,8 +62,8 @@ app.post('/api/profile', async (req, res) => {
 
 app.get('/', async (req, res) => {
   const url = req.query.url as string
+  res.set('Content-Type', 'text/html; charset=UTF-8')
   if (!url) {
-    res.set('Content-Type', 'text/html; charset=UTF-8')
     res.render('index')
     return
   }
@@ -73,13 +73,11 @@ app.get('/', async (req, res) => {
     switch (pathName.length) {
       case 3: {
         const result = await parseProfile(url, agent)
-        res.set('Content-Type', 'text/html; charset=UTF-8')
         res.render('profile', result)
         break
       }
       default: {
         const result = await parseSkeet(url, agent, req.headers['accept-language'])
-        res.set('Content-Type', 'text/html; charset=UTF-8')
         res.render('skeet', result)
         break
       }
