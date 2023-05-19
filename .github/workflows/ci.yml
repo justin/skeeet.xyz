@@ -23,3 +23,8 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm test
+      - name: 'Test'
+        run: npx vitest --coverage
+      - name: 'Report Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses:  davelosert/vitest-coverage-report-action@v1
