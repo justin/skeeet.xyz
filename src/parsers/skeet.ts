@@ -13,7 +13,10 @@ type SkeetPayload = {
   link: string
   images: AppBskyEmbedImages.ViewImage[]
 }
-export async function parseSkeet(url: string, agent: BskyAgent, locale = `en-US`): Promise<SkeetPayload> {
+
+const defaultLang = `en-US`
+
+export async function parseSkeet(url: string, agent: BskyAgent, locale = defaultLang): Promise<SkeetPayload> {
   const parsedUrl = new URL(url)
   const path = parsedUrl.pathname
   const parts = path.split('/')
@@ -22,7 +25,7 @@ export async function parseSkeet(url: string, agent: BskyAgent, locale = `en-US`
   let parsedLocale = locale.includes(',') ? locale.split(',')[0] : locale
 
   if (parsedLocale.includes('*')) {
-    parsedLocale = `en-US`
+    parsedLocale = defaultLang
   }
 
   console.debug(`Attempting to build OG tags for ${parsedUrl}`)
