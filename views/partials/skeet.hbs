@@ -1,0 +1,25 @@
+<section id='profile'>
+  <img src='{{avatar}}' alt="{{handle}}'s profile picture" id='avatar' />
+  <div class='display-name'>
+    <h1>{{displayName}}</h1>
+    <h2>@{{handle}}</h2>
+  </div>
+</section>
+<section id='body'>
+  <p>{{{text}}}</p>
+  {{#if images}}
+    <section id='images'>
+      {{#each images}}
+        <img src='{{this.thumb}}' alt='{{this.alt}}' />
+      {{/each}}
+    </section>
+  {{/if}}
+</section>
+<section id='date'>
+  <time>{{date}} at {{time}}</time>
+</section>
+<section id='meta'>
+  <span><strong>{{likes}}</strong> Likes</span>
+  <span><strong>{{reskeets}}</strong> Reskeets</span>
+  <span><a href='{{link}}' title='Permanent URL for skeet'>Permalink</a></span>
+</section>
