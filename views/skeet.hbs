@@ -1,56 +1,34 @@
-<html dir='ltr' lang='en'>
-  <head>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <meta
-      name='viewport'
-      content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover'
-    />
-    <link rel='shortcut icon' href='{{avatar}}' />
-    <link rel='apple-touch-icon' sizes='192x192' href='{{avatar}}' />
-    <title>{{{text}}}</title>
-    <meta property='og:title' content='{{title}}' />
-    <meta property='og:type' content='article' />
-    <meta property='og:image' content='{{thumb}}' />
-    <meta property='og:description' content='{{text}}' />
-    <meta name='description' content='{{text}}' />
-    <meta name='robots' content='noindex' />
-    <meta content='https://twitter.com/x/status/x' property='og:url' />
-    <link rel='stylesheet' type='text/css' href='/css/skeet.css' />
-  </head>
-  <body>
-    <main>
-      <article>
-        <section id='profile'>
-          <img src='{{avatar}}' alt="{{handle}}'s profile picture" id='avatar' />
-          <div class='display-name'>
-            <h1>{{displayName}}</h1>
-            <h2>@{{handle}}</h2>
-          </div>
+<main>
+  <article>
+    <section id='profile'>
+      <img src='{{avatar}}' alt="{{handle}}'s profile picture" id='avatar' />
+      <div class='display-name'>
+        <h1>{{displayName}}</h1>
+        <h2>@{{handle}}</h2>
+      </div>
+    </section>
+    <section id='body'>
+      <p>{{{text}}}</p>
+      {{#if images}}
+        <section id='images'>
+          {{#each images}}
+            <img src='{{this.thumb}}' alt='{{this.alt}}' />
+          {{/each}}
         </section>
-        <section id='body'>
-          <p>{{{text}}}</p>
-          {{#if images}}
-            <section id='images'>
-              {{#each images}}
-                <img src='{{this.thumb}}' alt='{{this.alt}}' />
-              {{/each}}
-            </section>
-          {{/if}}
-        </section>
-        <section id='date'>
-          <time>{{date}} at {{time}}</time>
-        </section>
-        <section id='meta'>
-          <span><strong>{{likes}}</strong> Likes</span>
-          <span><strong>{{reskeets}}</strong> Reskeets</span>
-          <span><a href='{{link}}' title='Permanent URL for skeet'>Permalink</a></span>
-        </section>
-      </article>
-    </main>
-    <footer>
-      <p>Made by
-        <a href='https://bsky.app/profile/jww.wtf'>Justin Williams</a>
-        (<a href='https://github.com/justin/skeeet.xyz'>Source Code</a>)</p>
-    </footer>
-  </body>
-</html>
+      {{/if}}
+    </section>
+    <section id='date'>
+      <time>{{date}} at {{time}}</time>
+    </section>
+    <section id='meta'>
+      <span><strong>{{likes}}</strong> Likes</span>
+      <span><strong>{{reskeets}}</strong> Reskeets</span>
+      <span><a href='{{link}}' title='Permanent URL for skeet'>Permalink</a></span>
+    </section>
+  </article>
+</main>
+<footer>
+  <p>Made by
+    <a href='https://bsky.app/profile/jww.wtf'>Justin Williams</a>
+    (<a href='https://github.com/justin/skeeet.xyz'>Source Code</a>)</p>
+</footer>

@@ -12,7 +12,6 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 3000
 const hbs = create({
-  defaultLayout: 'default',
   extname: '.hbs',
   partialsDir: 'views/partials',
   layoutsDir: 'views/layouts',
@@ -82,7 +81,7 @@ app.get('/', async (req, res) => {
     switch (pathName.length) {
       case 3: {
         const result = await parseProfile(url, agent)
-        res.render('profile', result)
+        res.render('profile', { profile: result, layout: false })
         break
       }
       default: {
