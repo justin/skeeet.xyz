@@ -1,12 +1,27 @@
 import { default as bsky } from '@atproto/api'
 import * as dotenv from 'dotenv'
 import express from 'express'
+import { create } from 'express-handlebars'
 import { exit } from 'process'
 import { parseSkeet } from './parsers/skeet.js'
 import { parseProfile } from './parsers/profile.js'
 const { BskyAgent } = bsky
 
 dotenv.config()
+
+const app = express()
+const port = process.env.PORT || 3000
+const hbs = create({
+  defaultLayout: 'default',
+  extname: '.hbs',
+  partialsDir: 'views/partials',
+  layoutsDir: 'views/layouts',
+})
+
+app.engine('.hbs', hbs.engine)
+app.set('view engine', '.hbs')
+app.use(express.json())
+app.use(express.static('public'))
 
 const agent = new BskyAgent({
   service: 'https://bsky.social',
@@ -23,12 +38,6 @@ if (result.success) {
   console.log('Failed to sign in')
   exit(1)
 }
-
-const app = express()
-const port = process.env.PORT
-app.set('view engine', 'hbs')
-app.use(express.json())
-app.use(express.static('public'))
 
 app.post('/api/skeet', async (req, res) => {
   const url = req.body.url as string
@@ -64,7 +73,7 @@ app.get('/', async (req, res) => {
   const url = req.query.url as string
   res.set('Content-Type', 'text/html; charset=UTF-8')
   if (!url) {
-    res.render('index')
+    res.render('index', { layout: false })
     return
   }
 
