@@ -2,8 +2,8 @@ import { BskyAgent } from '@atproto/api'
 import * as dotenv from 'dotenv'
 import express from 'express'
 import { exit } from 'process'
-import { parseSkeet } from './parsers/skeet.js'
-import { parseProfile } from './parsers/profile.js'
+import { parseSkeet } from './parsers/skeet'
+import { parseProfile } from './parsers/profile'
 
 dotenv.config()
 
