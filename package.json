@@ -25,6 +25,7 @@
     "@atproto/api": "^0.2.7",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
     "hbs": "^4.2.0",
     "linkify-string": "^4.1.1",
     "linkifyjs": "^4.1.1"
