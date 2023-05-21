@@ -18,8 +18,9 @@
     "lint-fix": "npx eslint --fix -c .eslintrc.json",
     "format": "npx prettier --write './(src|__tests__)/**/*.ts'",
     "format-check": "npx prettier --check './(src|__tests__)/**/*.ts'",
-    "test": "vitest",
-    "test-watch": "vitest run --coverage"
+    "test": "npx vitest run --config ./vitest.config.ts",
+    "test:coverage": "npx vitest --coverage --config ./vitest.config.ts",
+    "test:watch": "npx vitest watch --coverage --config ./vitest.config.ts"
   },
   "dependencies": {
     "@atproto/api": "^0.2.7",

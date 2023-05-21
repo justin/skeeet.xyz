@@ -2,8 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "firsttris.vscode-jest-runner",
     "github.vscode-github-actions",
-    "Orta.vscode-jest"
+    "ZixuanChen.vitest-explorer"
   ]
 }
