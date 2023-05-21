@@ -9,6 +9,7 @@
     "**/tsconfig.tsbuildinfo": true,
     "**/lib": true,
     "**/node_modules": true,
+    "**/coverage": true,
     // Hide derived JavaScript files
     "**/*.js": { "when": "$(basename).ts" },
     "**/**.js": { "when": "$(basename).tsx" }
@@ -21,6 +22,7 @@
   "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.referencesCodeLens.enabled": true,
   "typescript.implementationsCodeLens.enabled": true,
-  "vitest.commandLine": "npm test --",
-  "vitest.enable": true
+  "vitest.enable": true,
+  "vitest.showFailMessages": true,
+  "vitest.commandLine": "npm run test:watch --"
 }
