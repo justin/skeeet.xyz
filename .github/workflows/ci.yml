@@ -8,6 +8,9 @@ jobs:
   unit-tests:
     name: Javascript Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     concurrency:
       group: ${{ github.ref }}
       cancel-in-progress: true
@@ -22,4 +25,7 @@ jobs:
           cache: 'npm'
       - run: npm install
       - run: npm run build
-      - run: npm test
+      - run: npx vitest --coverage
+      - name: 'Report Coverage'
+        if: always() # Also generate the report if tests are failing
+        uses: davelosert/vitest-coverage-report-action@v1
