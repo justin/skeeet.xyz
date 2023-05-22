@@ -1,4 +1,5 @@
-import { AppBskyEmbedImages, AppBskyFeedDefs, BskyAgent, AppBskyFeedPost } from '@atproto/api'
+import { AppBskyEmbedImages, AppBskyFeedDefs, BskyAgent, default as pkg } from '@atproto/api'
+const { AppBskyFeedPost } = pkg
 import linkifyStr from 'linkify-string'
 
 type SkeetPayload = {

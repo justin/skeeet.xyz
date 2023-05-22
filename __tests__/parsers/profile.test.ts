@@ -1,7 +1,7 @@
-import { BskyAgent } from '@atproto/api'
+import { default as bsky } from '@atproto/api'
+const { BskyAgent } = bsky
 import * as dotenv from 'dotenv'
 import { parseProfile } from '../../src/parsers/profile'
-import { describe, it, expect, beforeAll } from 'vitest'
 
 describe('Parsing profiles', () => {
   const agent = new BskyAgent({
