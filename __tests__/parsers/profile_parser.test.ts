@@ -1,5 +1,4 @@
-import { default as bsky } from '@atproto/api'
-const { BskyAgent } = bsky
+import { BskyAgent } from '@atproto/api'
 import * as dotenv from 'dotenv'
 import { parseProfile } from '../../src/parsers/profile_parser'
 

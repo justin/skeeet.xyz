@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "nodenext",
+    "module": "Node16",
+    "moduleResolution": "node",
     "baseUrl": "./",
     "composite": true,
     "allowSyntheticDefaultImports": true,

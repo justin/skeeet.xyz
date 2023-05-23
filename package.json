@@ -2,9 +2,6 @@
   "name": "skeeet.xyz",
   "version": "1.0.0",
   "description": "A little helper to convert Skeet links into something readable via iMessage",
-  "type": "module",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "author": "Justin Williams",
   "license": "ISC",
   "scripts": {
@@ -17,8 +14,8 @@
     "lint-fix": "npx eslint --fix -c .eslintrc.json",
     "format": "npx prettier --write './(src|__tests__)/**/*.ts'",
     "format-check": "npx prettier --check './(src|__tests__)/**/*.ts'",
-    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
-    "test-watch": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --watch"
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "dependencies": {
     "@atproto/api": "^0.3.7",

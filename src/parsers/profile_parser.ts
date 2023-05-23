@@ -14,7 +14,7 @@ export async function parseProfile(url: string, agent: BskyAgent): Promise<Profi
   const parts = path.split('/')
   const actor = parts[2]
 
-  const profile = await agent.app.bsky.actor.getProfile({ actor: actor })
+  const profile = await agent.getProfile({ actor: actor })
   if (profile.success) {
     const options = {
       displayName: profile.data.displayName,
