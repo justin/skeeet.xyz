@@ -1,5 +1,4 @@
-import { AppBskyEmbedImages, AppBskyFeedDefs, BskyAgent, default as pkg } from '@atproto/api'
-const { AppBskyFeedPost } = pkg
+import * as BlueSky from '@atproto/api'
 import linkifyStr from 'linkify-string'
 
 type SkeetPayload = {
@@ -12,12 +11,12 @@ type SkeetPayload = {
   avatar: string
   thumb: string | undefined
   link: string
-  images: AppBskyEmbedImages.ViewImage[]
+  images: BlueSky.AppBskyEmbedImages.ViewImage[]
 }
 
 const defaultLang = `en-US`
 
-export async function parseSkeet(url: string, agent: BskyAgent, locale = defaultLang): Promise<SkeetPayload> {
+export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale = defaultLang): Promise<SkeetPayload> {
   const parsedUrl = new URL(url)
   const path = parsedUrl.pathname
   const parts = path.split('/')
@@ -38,8 +37,8 @@ export async function parseSkeet(url: string, agent: BskyAgent, locale = default
     depth: 0,
   })
 
-  if (AppBskyFeedPost.validateEntity(post.data)) {
-    const postView = post.data.thread.post as AppBskyFeedDefs.PostView
+  if (BlueSky.AppBskyFeedDefs.validateThreadViewPost(post)) {
+    const postView = post.data.thread.post as BlueSky.AppBskyFeedDefs.PostView
 
     let text = ''
     if ('text' in postView.record) {
@@ -47,15 +46,15 @@ export async function parseSkeet(url: string, agent: BskyAgent, locale = default
     }
     let thumb = ''
     if (postView.embed?.media) {
-      const media = postView.embed?.media as AppBskyEmbedImages.Main
+      const media = postView.embed?.media as BlueSky.AppBskyEmbedImages.Main
       if ('thumb' in media.images[0]) {
         thumb = media.images[0].thumb as string
       }
     }
 
-    let images: AppBskyEmbedImages.ViewImage[] = []
+    let images: BlueSky.AppBskyEmbedImages.ViewImage[] = []
     if (postView.embed?.images) {
-      images = postView.embed?.images as [AppBskyEmbedImages.ViewImage]
+      images = postView.embed?.images as [BlueSky.AppBskyEmbedImages.ViewImage]
       if (images[0] != undefined) {
         thumb = images[0].thumb
       }
@@ -64,7 +63,6 @@ export async function parseSkeet(url: string, agent: BskyAgent, locale = default
     let date: Date | undefined
     let time: Date | undefined
     if ('createdAt' in postView.record) {
-      console.debug(`Post date: ${postView.record.createdAt as Date}`)
       date = new Date(Date.parse(postView.record.createdAt as string))
       time = date
     }

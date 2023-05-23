@@ -4,8 +4,5 @@
     "rootDir": "./src",
     "outDir": "./lib/"
   },
-  "include": ["./src/**/*.ts"],
-  "ts-node": {
-    "esm": true
-  }
+  "include": ["./src/**/*.ts"]
 }
