@@ -25,12 +25,9 @@ describe('Parsing skeets', () => {
     )
     expect(result).toBeDefined()
     expect(result.title).toBe('Chinchillazilla (chinchillazilla.hellthread.vet)')
-    expect(result.link).toBe('https://staging.bsky.app/profile/chinchillazilla.hellthread.vet/post/3jvhqs4j6kw2n')
+    expect(result.link).toBe('https://bsky.app/profile/chinchillazilla.hellthread.vet/post/3jvhqs4j6kw2n')
     expect(result.avatar).toBeDefined()
-    expect(result.thumb).toBeDefined()
-    if (result.thumb) {
-      expect(result.thumb.length).toBeGreaterThan(0)
-    }
+    expect(result.images.length).toBe(1)
     expect(result.text).toContain("Here is an artist's rendering, anyway.")
   })
 
@@ -38,12 +35,8 @@ describe('Parsing skeets', () => {
     const result = await parseSkeet('https://staging.bsky.app/profile/pfrazee.com/post/3jvhz4cv3yd2y', agent)
     expect(result).toBeDefined()
     expect(result.title).toContain('(pfrazee.com)')
-    expect(result.link).toBe('https://staging.bsky.app/profile/pfrazee.com/post/3jvhz4cv3yd2y')
+    expect(result.link).toBe('https://bsky.app/profile/pfrazee.com/post/3jvhz4cv3yd2y')
     expect(result.avatar).toBeDefined()
-    expect(result.thumb).toBeDefined()
-    if (result.thumb) {
-      expect(result.thumb.length).toBeGreaterThan(0)
-    }
     expect(result.text).toContain('this is a public network! your profile, posts, and likes are public!')
   })
 
@@ -51,12 +44,9 @@ describe('Parsing skeets', () => {
     const result = await parseSkeet('https://staging.bsky.app/profile/rationalblonde.com/post/3jvi52bmci42h', agent)
     expect(result).toBeDefined()
     expect(result.title).toContain('(rationalblonde.com)')
-    expect(result.link).toBe('https://staging.bsky.app/profile/rationalblonde.com/post/3jvi52bmci42h')
+    expect(result.link).toBe('https://bsky.app/profile/rationalblonde.com/post/3jvi52bmci42h')
     expect(result.avatar).toBeDefined()
-    expect(result.thumb).toBeDefined()
-    if (result.thumb) {
-      expect(result.thumb.length).toBeGreaterThan(0)
-    }
+    expect(result.images.length).toBe(1)
     expect(result.text).toContain("she's back baby")
   })
 
@@ -64,12 +54,21 @@ describe('Parsing skeets', () => {
     const result = await parseSkeet('https://staging.bsky.app/profile/jaketapper.bsky.social/post/3jvicacjl4c2o', agent)
     expect(result).toBeDefined()
     expect(result.title).toContain('(jaketapper.bsky.social)')
-    expect(result.link).toBe('https://staging.bsky.app/profile/jaketapper.bsky.social/post/3jvicacjl4c2o')
+    expect(result.link).toBe('https://bsky.app/profile/jaketapper.bsky.social/post/3jvicacjl4c2o')
     expect(result.avatar).toBeDefined()
-    expect(result.thumb).toBeDefined()
-    if (result.thumb) {
-      expect(result.thumb.length).toBeGreaterThan(0)
-    }
+    expect(result.images.length).toBe(2)
     expect(result.text).toContain('I offer you these two images from A.I. depicting a hell rope')
+  })
+
+  it('should parse a reskeet with an image', async () => {
+    const result = await parseSkeet('https://bsky.app/profile/rachelskirts.bsky.social/post/3jw3uhuq2w32j', agent)
+    expect(result).toBeDefined()
+    expect(result.images.length).toBe(1)
+  })
+
+  it('should parse a skeet with no replies or parents', async () => {
+    const result = await parseSkeet('https://bsky.app/profile/jesseltaylor.bsky.social/post/3jwgct3nro426', agent)
+    expect(result).toBeDefined()
+    expect(result.images.length).toBe(0)
   })
 })

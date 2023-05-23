@@ -5,7 +5,9 @@
 <title>{{{text}}}</title>
 <meta property='og:title' content='{{title}}' />
 <meta property='og:type' content='article' />
-<meta property='og:image' content='{{thumb}}' />
+{{#if images}}
+  <meta property='og:image' content='{{images.0.thumb}}' />
+{{/if}}
 <meta property='og:description' content='{{text}}' />
 <meta name='description' content='{{text}}' />
 <meta name='robots' content='noindex' />
