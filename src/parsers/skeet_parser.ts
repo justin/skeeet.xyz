@@ -1,5 +1,6 @@
 import * as BlueSky from '@atproto/api'
 import linkifyStr from 'linkify-string'
+import { Profile } from '../types/profile'
 
 type SkeetPayload = {
   title: string
@@ -30,9 +31,11 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
 
   console.debug(`Attempting to build OG tags for ${parsedUrl}`)
 
-  const profile = await agent.app.bsky.actor.getProfile({ actor: actor })
-  const did = profile.data.did
-  const post = await agent.app.bsky.feed.getPostThread({
+  const profileResult = await agent.app.bsky.actor.getProfile({ actor: actor })
+  const profile = new Profile(profileResult.data)
+
+  const did = profile.did
+  const post = await agent.getPostThread({
     uri: `at://${did}/app.bsky.feed.post/${id}`,
     depth: 0,
   })
@@ -74,13 +77,13 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
     }
 
     const options = {
-      title: `${postView.author.displayName} (${postView.author.handle})`,
-      displayName: postView.author.displayName,
-      handle: postView.author.handle,
+      title: `${profile.displayName} (${profile.handle})`,
+      displayName: profile.displayName,
+      handle: profile.handle,
       text: linkifyStr(text, links),
       date: date?.toLocaleDateString(parsedLocale, { year: 'numeric', month: 'long', day: 'numeric' }),
       time: time?.toLocaleTimeString(parsedLocale, { hour: 'numeric', minute: 'numeric' }),
-      avatar: postView.author.avatar,
+      avatar: profile.avatar,
       thumb: thumb,
       link: parsedUrl.toString(),
       likes: postView.likeCount ?? 0,
