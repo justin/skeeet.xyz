@@ -1,6 +1,7 @@
 import * as BlueSky from '@atproto/api'
 import linkifyStr from 'linkify-string'
 import { Profile } from '../types/profile'
+import { Post, PostImage } from '../types/post'
 
 type SkeetPayload = {
   title: string
@@ -10,12 +11,14 @@ type SkeetPayload = {
   date: string | undefined
   time: string | undefined
   avatar: string
-  thumb: string | undefined
   link: string
-  images: BlueSky.AppBskyEmbedImages.ViewImage[]
+  images: PostImage[]
 }
 
 const defaultLang = `en-US`
+
+type ThreadViewPost = BlueSky.AppBskyFeedDefs.ThreadViewPost
+type PostView = BlueSky.AppBskyFeedDefs.PostView
 
 export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale = defaultLang): Promise<SkeetPayload> {
   const parsedUrl = new URL(url)
@@ -31,44 +34,21 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
 
   console.debug(`Attempting to build OG tags for ${parsedUrl}`)
 
-  const profileResult = await agent.app.bsky.actor.getProfile({ actor: actor })
+  const profileResult = await agent.getProfile({ actor: actor })
   const profile = new Profile(profileResult.data)
 
   const did = profile.did
-  const post = await agent.getPostThread({
+  const postThreadResponse = await agent.getPostThread({
     uri: `at://${did}/app.bsky.feed.post/${id}`,
     depth: 0,
   })
 
-  if (BlueSky.AppBskyFeedDefs.validateThreadViewPost(post)) {
-    const postView = post.data.thread.post as BlueSky.AppBskyFeedDefs.PostView
-
-    let text = ''
-    if ('text' in postView.record) {
-      text = postView.record.text as string
-    }
-    let thumb = ''
-    if (postView.embed?.media) {
-      const media = postView.embed?.media as BlueSky.AppBskyEmbedImages.Main
-      if ('thumb' in media.images[0]) {
-        thumb = media.images[0].thumb as string
-      }
-    }
-
-    let images: BlueSky.AppBskyEmbedImages.ViewImage[] = []
-    if (postView.embed?.images) {
-      images = postView.embed?.images as [BlueSky.AppBskyEmbedImages.ViewImage]
-      if (images[0] != undefined) {
-        thumb = images[0].thumb
-      }
-    }
-
-    let date: Date | undefined
-    let time: Date | undefined
-    if ('createdAt' in postView.record) {
-      date = new Date(Date.parse(postView.record.createdAt as string))
-      time = date
-    }
+  const thread = postThreadResponse.data.thread as ThreadViewPost
+  const threadValidation = BlueSky.AppBskyFeedDefs.validateThreadViewPost(thread)
+  if (threadValidation.success) {
+    // The requested post.
+    const postView = postThreadResponse.data.thread.post as PostView
+    const post = new Post(postView)
 
     const links = {
       validate: {
@@ -80,18 +60,17 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
       title: `${profile.displayName} (${profile.handle})`,
       displayName: profile.displayName,
       handle: profile.handle,
-      text: linkifyStr(text, links),
-      date: date?.toLocaleDateString(parsedLocale, { year: 'numeric', month: 'long', day: 'numeric' }),
-      time: time?.toLocaleTimeString(parsedLocale, { hour: 'numeric', minute: 'numeric' }),
+      text: linkifyStr(post.text, links),
+      date: post.formattedDate(parsedLocale),
+      time: post.formattedTime(parsedLocale),
       avatar: profile.avatar,
-      thumb: thumb,
-      link: parsedUrl.toString(),
+      link: post.url.toString(),
       likes: postView.likeCount ?? 0,
       reskeets: postView.reskeetCount ?? 0,
-      images: images,
+      images: post.images,
     } as SkeetPayload
     return options
   } else {
-    throw new Error(`Failed to get post ${id}`)
+    throw new Error(`Failed to get post ${id}: ${threadValidation.error}`)
   }
 }
