@@ -3,8 +3,8 @@ import * as dotenv from 'dotenv'
 import express from 'express'
 import { create } from 'express-handlebars'
 import { exit } from 'process'
-import { parseSkeet } from './parsers/skeet.js'
-import { parseProfile } from './parsers/profile.js'
+import { parseSkeet } from './parsers/skeet_parser.js'
+import { parseProfile } from './parsers/profile_parser.js'
 const { BskyAgent } = bsky
 
 dotenv.config()

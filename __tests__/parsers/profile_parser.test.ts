@@ -1,7 +1,7 @@
 import { default as bsky } from '@atproto/api'
 const { BskyAgent } = bsky
 import * as dotenv from 'dotenv'
-import { parseProfile } from '../../src/parsers/profile'
+import { parseProfile } from '../../src/parsers/profile_parser'
 
 describe('Parsing profiles', () => {
   const agent = new BskyAgent({
@@ -15,9 +15,7 @@ describe('Parsing profiles', () => {
       password: process.env.BSKY_PASSWORD!,
     })
 
-    if (!result.success) {
-      fail('Authentication failed')
-    }
+    expect(result.success).toBe(true)
   })
   it('parse a user profile', async () => {
     const profile = await parseProfile('https://staging.bsky.app/profile/chinchillazilla.hellthread.vet', agent)
