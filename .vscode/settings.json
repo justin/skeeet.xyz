@@ -7,6 +7,7 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/tsconfig.tsbuildinfo": true,
+    "**/coverage": true,
     "**/lib": true,
     "**/node_modules": true,
     // Hide derived JavaScript files
