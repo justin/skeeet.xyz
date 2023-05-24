@@ -87,7 +87,9 @@ app.get('/', async (req, res) => {
       }
       default: {
         const result = await parseSkeet(url, agent, req.headers['accept-language'])
-        res.render('skeet', result)
+        res.render('skeet', {
+          skeet: result,
+        })
         break
       }
     }

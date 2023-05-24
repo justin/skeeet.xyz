@@ -66,6 +66,55 @@ section#images > img {
   height: auto;
 }
 
+section.quoted-post {
+  border: 1px solid #ccc;
+  padding: 10pt;
+  margin: 10pt 0pt;
+}
+
+div.user-profile {
+  display: flex;
+  align-items: center;
+
+  .display-name > h1 {
+    font-size: 14px;
+    letter-spacing: 0.25px;
+    font-weight: 700;
+    color: #000;
+    line-height: 10px;
+    margin: 0;
+  }
+
+  .display-name > h2 {
+    font-size: 15px;
+    letter-spacing: 0.25px;
+    font-weight: 400;
+    color: rgb(84, 86, 100);
+    margin: 0;
+  }
+
+  .display-name > h1 > span.relative-date {
+    font-size: 10pt;
+    color: rgb(84, 86, 100);
+    font-weight: normal;
+  }
+}
+
+div.user-profile > img.avatar {
+  border-radius: 50%;
+  height: 50px;
+}
+
+section.quoted-post > p.body-text {
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  line-height: 25px;
+  color: #000;
+  font-weight: 400;
+  margin: 0pt;
+  margin-top: 8pt;
+}
+
 section#date {
   font-size: 15px;
   letter-spacing: 0.25px;
@@ -148,5 +197,29 @@ footer > p > a {
   section#date,
   footer > p {
     color: rgb(124, 133, 144);
+  }
+
+  section.quoted-post {
+    border-color: rgba(255, 255, 255, 0.3);
+    padding: 10pt;
+    margin: 10pt 0pt;
+  }
+
+  div.user-profile {
+    .display-name > h1 {
+      color: rgb(230, 237, 243);
+    }
+
+    .display-name > h2 {
+      color: rgb(124, 133, 144);
+    }
+
+    .display-name > h1 > span.relative-date {
+      color: rgb(124, 133, 144);
+    }
+  }
+
+  section.quoted-post > p.body-text {
+    color: rgb(230, 237, 243);
   }
 }

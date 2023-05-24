@@ -1,6 +1,7 @@
 import * as BlueSky from '@atproto/api'
 import { Profile } from './profile'
 import { URL } from 'url'
+import { QuotedPost } from './quoted_post'
 
 type PostView = BlueSky.AppBskyFeedDefs.PostView
 export type PostImage = BlueSky.AppBskyEmbedImages.ViewImage | BlueSky.AppBskyEmbedImages.Image
@@ -15,6 +16,8 @@ export class Post {
   post: PostView
   record: PostView['record']
   profile: Profile
+
+  quotedPost?: QuotedPost
 
   images: PostImage[] = []
 
@@ -51,11 +54,12 @@ export class Post {
         }
         case BlueskyPostEmbedType.RecordEmbedType: {
           //   console.debug(`Post has record embed type ${embedType}`)
+          this.quotedPost = new QuotedPost(embed?.record as BlueSky.AppBskyEmbedRecord.ViewRecord)
           break
         }
 
         case BlueskyPostEmbedType.RecordWithMediaEmbedType: {
-          //   console.debug(`Post has record with media embed type ${embedType}`)
+          console.debug(`Post has record with media embed type ${embedType}`)
 
           if (embed?.media) {
             const media = embed?.media as BlueSky.AppBskyEmbedImages.Main
