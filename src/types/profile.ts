@@ -3,7 +3,10 @@ import * as BlueSky from '@atproto/api'
 /**
  * Represents a detailed view of a user profile.
  */
-type ProfileView = BlueSky.AppBskyActorDefs.ProfileViewDetailed
+type ProfileView =
+  | BlueSky.AppBskyActorDefs.ProfileViewDetailed
+  | BlueSky.AppBskyActorDefs.ProfileViewBasic
+  | BlueSky.AppBskyActorDefs.ProfileView
 
 /**
  * Represents a user profile.
@@ -20,7 +23,7 @@ export class Profile {
    * @throws If the profile data is invalid.
    */
   constructor(v: ProfileView) {
-    const validation = BlueSky.AppBskyActorDefs.validateProfileViewDetailed(v)
+    const validation = BlueSky.AppBskyActorDefs.validateProfileViewBasic(v)
     if (validation.success) {
       this.profile = v
     } else {

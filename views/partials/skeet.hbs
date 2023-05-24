@@ -14,7 +14,22 @@
       {{/each}}
     </section>
   {{/if}}
+
+  {{#if this.quotedPost}}
+    <section class='quoted-post'>
+      <div class='user-profile'>
+        <img src='{{quotedPost.avatar}}' alt="{{quotedPost.handle}}'s profile picture" class='avatar' />
+        <div class='display-name'>
+          <h1>{{quotedPost.displayName}}<span class='relative-date'> · {{quotedPost.date}}</span></h1>
+          <h2>@{{quotedPost.handle}}</h2>
+        </div>
+      </div>
+      <p class='body-text'>{{quotedPost.text}}</p>
+    </section>
+  {{/if}}
+
 </section>
+
 <section id='date'>
   <time>{{date}} at {{time}}</time>
 </section>
