@@ -39,6 +39,12 @@ section#profile {
   margin: 0;
 }
 
+.display-name > h1 > span.relative-date {
+  font-size: 10pt;
+  color: rgb(84, 86, 100);
+  font-weight: normal;
+}
+
 .display-name > h2 {
   font-size: 15px;
   letter-spacing: 0.25px;

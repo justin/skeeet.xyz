@@ -2,6 +2,7 @@ import * as BlueSky from '@atproto/api'
 import { Profile } from './profile'
 import { URL } from 'url'
 import { QuotedPost } from './quoted_post'
+import { formattedRelativeDate } from '../utils/relative_dates'
 
 type PostView = BlueSky.AppBskyFeedDefs.PostView
 export type PostImage = BlueSky.AppBskyEmbedImages.ViewImage | BlueSky.AppBskyEmbedImages.Image
@@ -109,5 +110,13 @@ export class Post {
 
   formattedTime(locale: string): string | undefined {
     return this.dateCreated?.toLocaleTimeString(locale, { hour: 'numeric', minute: 'numeric' })
+  }
+
+  formattedRelativeDate(): string | undefined {
+    if (this.dateCreated) {
+      return formattedRelativeDate(this.dateCreated)
+    }
+
+    return undefined
   }
 }

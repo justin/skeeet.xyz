@@ -1,5 +1,6 @@
 import * as BlueSky from '@atproto/api'
 import { Profile } from './profile'
+import { formattedRelativeDate } from '../utils/relative_dates'
 
 export class QuotedPost {
   profile: Profile
@@ -39,5 +40,13 @@ export class QuotedPost {
 
   formattedDate(locale: string): string | undefined {
     return this.dateCreated?.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })
+  }
+
+  formattedRelativeDate(): string | undefined {
+    if (this.dateCreated) {
+      return formattedRelativeDate(this.dateCreated)
+    }
+
+    return undefined
   }
 }

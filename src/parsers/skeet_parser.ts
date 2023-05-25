@@ -2,7 +2,6 @@ import * as BlueSky from '@atproto/api'
 import linkifyStr from 'linkify-string'
 import { Profile } from '../types/profile'
 import { Post, PostImage } from '../types/post'
-import { QuotedPost } from '../types/quoted_post'
 
 type SkeetPayload = {
   title: string
@@ -11,6 +10,7 @@ type SkeetPayload = {
   text: string
   date: string | undefined
   time: string | undefined
+  relativeDate: string | undefined
   avatar: string
   link: string
   images: PostImage[]
@@ -70,6 +70,7 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
       displayName: profile.displayName,
       handle: profile.handle,
       text: linkifyStr(post.text, links),
+      relativeDate: post.formattedRelativeDate(),
       date: post.formattedDate(parsedLocale),
       time: post.formattedTime(parsedLocale),
       avatar: profile.avatar,
@@ -80,7 +81,7 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
       quotedPost: post.quotedPost
         ? {
             text: post.quotedPost.text,
-            date: post.quotedPost.formattedDate(parsedLocale),
+            date: post.quotedPost.formattedRelativeDate(),
             avatar: post.quotedPost.profile.avatar,
             link: post.quotedPost.url.toString(),
             handle: post.quotedPost.profile.handle,
