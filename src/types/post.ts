@@ -5,7 +5,10 @@ import { QuotedPost } from './quoted_post'
 import { formattedRelativeDate } from '../utils/relative_dates'
 
 type PostView = BlueSky.AppBskyFeedDefs.PostView
-export type PostImage = BlueSky.AppBskyEmbedImages.ViewImage | BlueSky.AppBskyEmbedImages.Image
+export type PostImage =
+  | BlueSky.AppBskyEmbedImages.ViewImage
+  | BlueSky.AppBskyEmbedImages.Image
+  | BlueSky.AppBskyEmbedImages.Main
 
 enum BlueskyPostEmbedType {
   ImageEmbedType = 'app.bsky.embed.images#view',
@@ -60,7 +63,12 @@ export class Post {
         }
 
         case BlueskyPostEmbedType.RecordWithMediaEmbedType: {
-          console.debug(`Post has record with media embed type ${embedType}`)
+          //   console.debug(`Post has record with media embed type ${embedType}`)
+
+          const record = embed?.record as BlueSky.AppBskyEmbedRecord.View
+          if (record) {
+            this.quotedPost = new QuotedPost(record.record as BlueSky.AppBskyEmbedRecord.ViewRecord)
+          }
 
           if (embed?.media) {
             const media = embed?.media as BlueSky.AppBskyEmbedImages.Main
