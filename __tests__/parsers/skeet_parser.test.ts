@@ -114,4 +114,16 @@ describe('Skeet Parsing', () => {
       expect(result.quotedPost).toBeUndefined()
     })
   })
+
+  describe('Parent Skeet Parsing', () => {
+    it('should parse the parent reply for a skeet', async () => {
+      const result = await parseSkeet('https://bsky.app/profile/bnb.im/post/3jw3zhvyetg2u', agent)
+      expect(result).toBeDefined()
+
+      const parent = result.parentPost
+      expect(parent).toBeDefined()
+      expect(parent?.handle).toBe('rachelskirts.bsky.social')
+      expect(parent?.images.length).toBe(1)
+    })
+  })
 })

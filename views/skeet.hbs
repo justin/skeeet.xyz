@@ -1,5 +1,10 @@
 <main>
   <article>
+    {{#with skeet.parentPost }}
+    {{> skeet }}
+    <p><hr /></p>
+    {{/with}}
+
     {{> skeet skeet}}
   </article>
 </main>
