@@ -1,0 +1,50 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+  "name": "Node.js & TypeScript",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:0-18",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "GitHub.vscode-pull-request-github",
+        "GitHub.copilot",
+        "github.vscode-github-actions",
+        "yoavbls.pretty-ts-errors",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/zsh"
+      }
+    },
+    "codespaces": {
+      "openFiles": ["src/index.ts"]
+    }
+  },
+  "containerEnv": {
+    "NODE_ENV": "development",
+    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+    "GITHUB_USER": "${localEnv:GITHUB_USER}"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers-contrib/features/asdf-package:1": {
+      "version": "latest"
+    },
+    "ghcr.io/rio/features/chezmoi:1": {
+      "version": "latest"
+    }
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "skeeet.xyz dev",
+      "onAutoForward": "notify"
+    }
+  },
+  "updateContentCommand": "npm install",
+  "postCreateCommand": "npm install"
+}
