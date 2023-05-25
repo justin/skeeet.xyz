@@ -14,6 +14,7 @@ type SkeetPayload = {
   avatar: string
   link: string
   images: PostImage[]
+  parentPost?: SkeetPayload
   quotedPost?: {
     text: string
     date: string | undefined
@@ -59,6 +60,13 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
     const postView = postThreadResponse.data.thread.post as PostView
     const post = new Post(postView)
 
+    let parent: Post | undefined
+    const parentThread = postThreadResponse.data.thread.parent as ThreadViewPost
+    if (parentThread) {
+      const parentView = parentThread.post as PostView
+      parent = new Post(parentView)
+    }
+
     const links = {
       validate: {
         url: (value: string) => /^(http|https):\/\//.test(value),
@@ -78,6 +86,32 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
       likes: postView.likeCount ?? 0,
       reskeets: postView.reskeetCount ?? 0,
       images: post.images,
+      parentPost: parent
+        ? {
+            title: `${parent.profile.displayName} (${parent.profile.handle})`,
+            displayName: parent.profile.displayName,
+            handle: parent.profile.handle,
+            text: linkifyStr(parent.text, links),
+            relativeDate: parent.formattedRelativeDate(),
+            date: parent.formattedDate(parsedLocale),
+            time: parent.formattedTime(parsedLocale),
+            avatar: parent.profile.avatar,
+            link: parent.url.toString(),
+            likes: 0,
+            reskeets: 0,
+            images: parent.images,
+            quotedPost: parent.quotedPost
+              ? {
+                  text: parent.quotedPost.text,
+                  date: parent.quotedPost.formattedRelativeDate(),
+                  avatar: parent.quotedPost.profile.avatar,
+                  link: parent.quotedPost.url.toString(),
+                  handle: parent.quotedPost.profile.handle,
+                  displayName: parent.quotedPost.profile.displayName,
+                }
+              : undefined,
+          }
+        : undefined,
       quotedPost: post.quotedPost
         ? {
             text: post.quotedPost.text,
