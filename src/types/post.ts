@@ -106,6 +106,14 @@ export class Post {
     return this.post.uri
   }
 
+  get reskeetCount(): number {
+    return this.post.repostCount as number
+  }
+
+  get likeCount(): number {
+    return this.post.likeCount as number
+  }
+
   get url(): URL {
     const components = this.post.uri.split('/')
     const id = components[components.length - 1]

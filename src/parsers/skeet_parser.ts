@@ -14,6 +14,8 @@ type SkeetPayload = {
   avatar: string
   link: string
   images: PostImage[]
+  reskeets: number
+  likes: number
   parentPost?: SkeetPayload
   quotedPost?: {
     text: string
@@ -83,8 +85,8 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
       time: post.formattedTime(parsedLocale),
       avatar: profile.avatar,
       link: post.url.toString(),
-      likes: postView.likeCount ?? 0,
-      reskeets: postView.reskeetCount ?? 0,
+      likes: post.likeCount ?? 0,
+      reskeets: post.reskeetCount ?? 0,
       images: post.images,
       parentPost: parent
         ? {

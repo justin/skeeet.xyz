@@ -113,6 +113,14 @@ describe('Skeet Parsing', () => {
 
       expect(result.quotedPost).toBeUndefined()
     })
+
+    it('should parse reskeets', async () => {
+      const result = await parseSkeet('https://bsky.app/profile/gaberivera.bsky.social/post/3jwlhzcxqgl2o', agent)
+
+      expect(result).toBeDefined()
+      expect(result.reskeets).toBeGreaterThanOrEqual(15)
+      expect(result.likes).toBeGreaterThanOrEqual(65)
+    })
   })
 
   describe('Parent Skeet Parsing', () => {
