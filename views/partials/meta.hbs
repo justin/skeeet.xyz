@@ -8,6 +8,10 @@
 {{#if images}}
   <meta property='og:image' content='{{images.0.thumb}}' />
 {{/if}}
+
+{{#if isoDate}}
+  <meta property='article:published_time' content='{{isoDate}}' />
+{{/if}}
 <meta property='og:description' content='{{text}}' />
 <meta name='description' content='{{text}}' />
 <meta name='robots' content='noindex' />
