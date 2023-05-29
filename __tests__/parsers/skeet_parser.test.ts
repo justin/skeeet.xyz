@@ -123,6 +123,21 @@ describe('Skeet Parsing', () => {
     })
   })
 
+  describe('Link Parsing', () => {
+    it('should parse a skeet with a link', async () => {
+      const result = await parseSkeet('https://bsky.app/profile/miriamm.bsky.social/post/3jwv4jtlgfc2x', agent)
+      expect(result).toBeDefined()
+
+      expect(result.externalLink).toBeDefined()
+      const externalLink = result.externalLink
+      expect(externalLink?.title).toBe('Gladis the killer whale and her gang of orcas out for revenge')
+      expect(externalLink?.description).toBe('Why are orcas attacking boats?')
+      expect(externalLink?.image).toBeDefined()
+      expect(externalLink?.url).toBe(
+        'https://www.independent.co.uk/news/world/europe/gladis-whale-orca-boat-attacks-gibraltar-b2347572.html'
+      )
+    })
+  })
   describe('Parent Skeet Parsing', () => {
     it('should parse the parent reply for a skeet', async () => {
       const result = await parseSkeet('https://bsky.app/profile/bnb.im/post/3jw3zhvyetg2u', agent)

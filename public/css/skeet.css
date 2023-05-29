@@ -78,6 +78,46 @@ section.quoted-post {
   margin: 10pt 0pt;
 }
 
+div.external-link {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+div.external-link img,
+div.external-link p {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+div.external-link a {
+  text-decoration: none;
+}
+
+div.external-link p {
+  font-size: 15px;
+  line-height: 20px;
+  color: #000;
+  margin: 0pt 5pt;
+}
+
+div.external-link p.headline {
+  margin-top: 10px;
+}
+div.external-link p:last-child {
+  padding-bottom: 10px;
+}
+
+div.external-link p.url {
+  color: rgb(84, 86, 100);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 div.user-profile {
   display: flex;
   align-items: center;
@@ -227,5 +267,13 @@ footer > p > a {
 
   section.quoted-post > p.body-text {
     color: rgb(230, 237, 243);
+  }
+
+  div.external-link p {
+    color: rgb(230, 237, 243);
+  }
+
+  div.external-link p.url {
+    color: rgb(124, 133, 144);
   }
 }

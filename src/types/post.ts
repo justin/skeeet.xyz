@@ -2,6 +2,7 @@ import * as BlueSky from '@atproto/api'
 import { Profile } from './profile'
 import { URL } from 'url'
 import { QuotedPost } from './quoted_post'
+import { ExternalEmbed } from './external_embed'
 import { formattedRelativeDate } from '../utils/relative_dates'
 
 type PostView = BlueSky.AppBskyFeedDefs.PostView
@@ -10,10 +11,13 @@ export type PostImage =
   | BlueSky.AppBskyEmbedImages.Image
   | BlueSky.AppBskyEmbedImages.Main
 
+export type PostExternalEmbedView = BlueSky.AppBskyEmbedExternal.ViewExternal
+
 enum BlueskyPostEmbedType {
   ImageEmbedType = 'app.bsky.embed.images#view',
   RecordEmbedType = 'app.bsky.embed.record#view',
   RecordWithMediaEmbedType = 'app.bsky.embed.recordWithMedia#view',
+  ExternalEmbedType = 'app.bsky.embed.external#view',
 }
 
 export class Post {
@@ -24,6 +28,8 @@ export class Post {
   quotedPost?: QuotedPost
 
   images: PostImage[] = []
+
+  externalLink?: ExternalEmbed
 
   constructor(post: PostView) {
     this.post = post
@@ -75,6 +81,14 @@ export class Post {
             this.images = media.images
           }
 
+          break
+        }
+        case BlueskyPostEmbedType.ExternalEmbedType: {
+          //   console.debug(`Post has external embed type ${embedType}`)
+          const external = embed?.external as PostExternalEmbedView
+          if (external) {
+            this.externalLink = new ExternalEmbed(external)
+          }
           break
         }
         default: {
