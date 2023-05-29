@@ -87,6 +87,7 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
       handle: profile.handle,
       text: linkifyStr(post.text, links),
       isoDate: post.dateCreated?.toISOString(),
+      metaText: post.metaText,
       relativeDate: post.formattedRelativeDate(),
       date: post.formattedDate(parsedLocale),
       time: post.formattedTime(parsedLocale),

@@ -116,6 +116,11 @@ export class Post {
     return ''
   }
 
+  get metaText(): string {
+    // Remove all newlines and replace with a space
+    return this.text.replace(/(\r\n|\n|\r)/gm, ' ')
+  }
+
   get uri(): string {
     return this.post.uri
   }
