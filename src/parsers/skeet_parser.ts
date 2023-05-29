@@ -14,6 +14,12 @@ type SkeetPayload = {
   avatar: string
   link: string
   images: PostImage[]
+  externalLink?: {
+    title: string
+    description: string
+    image: string
+    url: URL
+  }
   reskeets: number
   likes: number
   parentPost?: SkeetPayload
@@ -89,6 +95,7 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
       likes: post.likeCount ?? 0,
       reskeets: post.reskeetCount ?? 0,
       images: post.images,
+      externalLink: post.externalLink ? post.externalLink.toPayload() : undefined,
       parentPost: parent
         ? {
             title: `${parent.profile.displayName} (${parent.profile.handle})`,
@@ -103,6 +110,7 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
             likes: 0,
             reskeets: 0,
             images: parent.images,
+            externalLink: post.externalLink,
             quotedPost: parent.quotedPost
               ? {
                   text: parent.quotedPost.text,
