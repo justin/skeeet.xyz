@@ -1,14 +1,6 @@
 import { BskyAgent } from '@atproto/api'
 import { Profile } from '../types/profile'
 
-type ProfilePayload = {
-  displayName: string
-  handle: string
-  avatar: string
-  bio: string
-  link: string
-}
-
 export async function parseProfile(url: string, agent: BskyAgent): Promise<Profile> {
   const parsedUrl = new URL(url)
   const path = parsedUrl.pathname
