@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { ExternalEmbed } from '../../src/types/external_embed'
 import * as BlueSky from '@atproto/api'
 

@@ -1,3 +1,4 @@
+import { beforeAll, describe, it, expect } from 'vitest'
 import { BskyAgent } from '@atproto/api'
 import * as dotenv from 'dotenv'
 import { parseProfile } from '../../src/parsers/profile_parser'

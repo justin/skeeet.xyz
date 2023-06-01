@@ -13,24 +13,6 @@
       "type": "node",
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "Watch TypeScript Files"
-    },
-    {
-      "type": "node",
-      "name": "Debug Jest Tests",
-      "request": "launch",
-      "args": [
-        "--runInBand",
-        "--watchAll=false",
-        "--testNamePattern",
-        "${jest.testNamePattern}",
-        "--runTestsByPath",
-        "${jest.testFile}"
-      ],
-      "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "preLaunchTask": "Build TypeScript Files"
     }
   ]
 }
