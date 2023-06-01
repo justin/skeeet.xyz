@@ -13,50 +13,67 @@ type ProfileView =
  */
 export class Profile {
   /**
-   * The profile data.
+   * The decentralized identifier for the user.
    */
-  public profile: ProfileView
+  did: string
+  /**
+   * The username/handle for the user ("jww.wtf")
+   */
+  handle: string
 
+  /**
+   * The display name for the user ("Justin Williams")
+   */
+  displayName: string
+
+  /**
+   * The URL for retrieving the profile avatar.
+   */
+  avatar?: string
+
+  /**
+   * The user's bio/description.
+   */
+  bio?: string
+
+  /**
+   * The URL for the user's profile.
+   */
+  url: URL
   /**
    * Creates a new profile instance.
    * @param v - The profile data.
    * @throws If the profile data is invalid.
    */
-  constructor(v: ProfileView) {
-    const validation = BlueSky.AppBskyActorDefs.validateProfileViewBasic(v)
-    if (validation.success) {
-      this.profile = v
+  constructor(v: ProfileView)
+  constructor(did: string, handle: string, displayName: string, avatar?: string, bio?: string)
+  constructor(
+    externalOrUri: ProfileView | string,
+    handle?: string,
+    displayName?: string,
+    avatar?: string,
+    bio?: string
+  ) {
+    if (typeof externalOrUri === 'string') {
+      this.did = externalOrUri
+      this.handle = handle || ''
+      this.displayName = displayName || ''
+      this.avatar = avatar
+      this.bio = bio
     } else {
-      console.error(`Invalid ProfileView: ${validation.error}`)
-      throw validation.error
+      const validation = BlueSky.AppBskyActorDefs.validateProfileViewBasic(externalOrUri)
+      if (validation.success) {
+        this.did = externalOrUri.did
+        this.handle = externalOrUri.handle
+        this.displayName = externalOrUri.displayName ?? ''
+        this.avatar = externalOrUri.avatar
+        this.bio = (externalOrUri.description as string) ?? ''
+      } else {
+        console.error(`Invalid ProfileView: ${validation.error}`)
+        throw validation.error
+      }
     }
-  }
 
-  /**
-   * The decentralized identifier for the user.
-   */
-  get did(): string {
-    return this.profile.did
-  }
-
-  /**
-   * The username/handle for the user ("jww.wtf")
-   */
-  get handle(): string {
-    return this.profile.handle
-  }
-
-  /**
-   * The display name for the user ("Justin Williams")
-   */
-  get displayName(): string {
-    return this.profile.displayName ?? ''
-  }
-
-  /**
-   * The URL for retrieving the profile avatar.
-   */
-  get avatar(): string | undefined {
-    return this.profile.avatar
+    this.url = new URL(`https://bsky.app/profile/${this.handle}`)
   }
 }
