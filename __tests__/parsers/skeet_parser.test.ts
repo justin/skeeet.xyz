@@ -1,3 +1,4 @@
+import { beforeAll, describe, it, expect } from 'vitest'
 import { BskyAgent } from '@atproto/api'
 import * as dotenv from 'dotenv'
 import { parseSkeet } from '../../src/parsers/skeet_parser'
@@ -14,9 +15,7 @@ describe('Skeet Parsing', () => {
       password: process.env.BSKY_PASSWORD!,
     })
 
-    if (!result.success) {
-      fail('Authentication failed')
-    }
+    expect(result.success).toBe(true)
   })
 
   describe('Plain Text Only', () => {
