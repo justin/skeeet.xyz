@@ -6,7 +6,7 @@
   </div>
 </section>
 <section id='body'>
-  <p>{{{text}}}</p>
+  <div class='body-text'>{{{richText post}}}</div>
   {{#if images}}
     <section id='images'>
       {{#each images}}
@@ -37,7 +37,7 @@
           <h2>@{{quotedPost.handle}}</h2>
         </div>
       </div>
-      <p class='body-text'>{{quotedPost.text}}</p>
+      <div class='body-text'>{{quotedPost.text}}</div>
     </section>
   {{/if}}
 

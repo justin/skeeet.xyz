@@ -59,12 +59,18 @@ section#body {
   line-height: 30px;
   color: #000;
   font-weight: 400;
+  padding-top: 10pt;
+}
+
+span.mention-username {
+  color: rgb(59, 131, 244);
 }
 
 section#images {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 10px;
+  padding-top: 10pt;
 }
 
 section#images > img {
@@ -221,6 +227,7 @@ footer > p > a {
   }
 
   a,
+  span.mention-username,
   footer > p > a {
     color: rgb(230, 237, 243);
   }
