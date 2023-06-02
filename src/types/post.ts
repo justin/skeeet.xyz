@@ -22,7 +22,7 @@ enum BlueskyPostEmbedType {
 
 export class Post {
   post: PostView
-  record: PostView['record']
+  record: object
   profile: Profile
 
   quotedPost?: QuotedPost
@@ -30,6 +30,8 @@ export class Post {
   images: PostImage[] = []
 
   externalLink?: ExternalEmbed
+
+  facets?: BlueSky.AppBskyRichtextFacet.Main[]
 
   constructor(post: PostView) {
     this.post = post
@@ -96,6 +98,10 @@ export class Post {
           break
         }
       }
+    }
+
+    if ('facets' in this.record && 'text' in this.record) {
+      this.facets = this.record.facets as BlueSky.AppBskyRichtextFacet.Main[]
     }
   }
 

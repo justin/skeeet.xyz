@@ -5,6 +5,8 @@ import { create } from 'express-handlebars'
 import { exit } from 'process'
 import { parseSkeet } from './parsers/skeet_parser.js'
 import { parseProfile } from './parsers/profile_parser.js'
+import { formattedPostText } from './utils/rich_text_helper.js'
+import Handlebars from 'handlebars'
 
 dotenv.config()
 
@@ -15,6 +17,8 @@ const hbs = create({
   partialsDir: 'views/partials',
   layoutsDir: 'views/layouts',
 })
+
+Handlebars.registerHelper('richText', formattedPostText)
 
 app.engine('.hbs', hbs.engine)
 app.set('view engine', '.hbs')

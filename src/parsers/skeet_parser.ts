@@ -4,6 +4,7 @@ import { Profile } from '../types/profile'
 import { Post, PostImage } from '../types/post'
 
 type SkeetPayload = {
+  post: Post
   title: string
   displayName: string
   handle: string
@@ -24,6 +25,7 @@ type SkeetPayload = {
   likes: number
   parentPost?: SkeetPayload
   quotedPost?: {
+    post: Post
     text: string
     date: string | undefined
     avatar: string
@@ -56,8 +58,9 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
   const profile = new Profile(profileResult.data)
 
   const did = profile.did
+  const uri = `at://${did}/app.bsky.feed.post/${id}`
   const postThreadResponse = await agent.getPostThread({
-    uri: `at://${did}/app.bsky.feed.post/${id}`,
+    uri: uri,
     depth: 0,
   })
 
@@ -82,6 +85,7 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
     }
 
     const options = {
+      post: post,
       title: `${profile.displayName} (${profile.handle})`,
       displayName: profile.displayName,
       handle: profile.handle,
@@ -99,6 +103,7 @@ export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale =
       externalLink: post.externalLink ? post.externalLink.toPayload() : undefined,
       parentPost: parent
         ? {
+            post: parent.post,
             title: `${parent.profile.displayName} (${parent.profile.handle})`,
             displayName: parent.profile.displayName,
             handle: parent.profile.handle,
