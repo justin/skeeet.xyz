@@ -1,27 +1,41 @@
 {
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "**/tsconfig.tsbuildinfo": true,
-    "**/coverage": true,
-    "**/lib": true,
-    "**/node_modules": true,
-    // Hide derived JavaScript files
-    "**/*.js": { "when": "$(basename).ts" },
-    "**/**.js": { "when": "$(basename).tsx" }
-  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    ".env": ".env, .env.example",
+    ".gitignore": ".gitignore, .dockerignore",
+    "tsconfig.json": "tsconfig.json, tsconfig.base.json, tsconfig.test.json",
+    "vite.config.ts": "vitest.config.ts, vite.config.ts"
+  },
+  "files.exclude": {
+    "**/**.js": {
+      "when": "$(basename).tsx"
+    },
+    // Hide derived JavaScript files
+    "**/*.js": {
+      "when": "$(basename).ts"
+    },
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/coverage": true,
+    "**/CVS": true,
+    "**/lib": true,
+    "**/node_modules": true,
+    "**/Thumbs.db": true,
+    "**/tsconfig.tsbuildinfo": true
+  },
   "prettier.configPath": "./.prettierrc",
   "prettier.ignorePath": "./.prettierignore",
   "prettier.prettierPath": "./node_modules/prettier",
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.referencesCodeLens.enabled": true,
   "typescript.implementationsCodeLens.enabled": true,
-  "vitest.commandLine": "npm test --",
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "vitest.commandLine": "npm run test:watch --",
+  "vitest.changeBackgroundColor": true,
+  "vitest.showFailMessages": false,
   "vitest.enable": true
 }
