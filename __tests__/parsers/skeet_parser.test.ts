@@ -148,4 +148,15 @@ describe('Skeet Parsing', () => {
       expect(parent?.images.length).toBe(1)
     })
   })
+
+  describe('Rich text parsing', () => {
+    it('should parse an earthquake tweet with rich text', async () => {
+      const result = await parseSkeet('https://bsky.app/profile/earthquake.bsky.social/post/3jxbdefhx442e', agent)
+      expect(result).toBeDefined()
+
+      const entities = result.post.entities
+      expect(entities).toBeDefined()
+      expect(entities?.length).toBe(2)
+    })
+  })
 })

@@ -33,6 +33,8 @@ export class Post {
 
   facets?: BlueSky.AppBskyRichtextFacet.Main[]
 
+  entities?: BlueSky.AppBskyFeedPost.Entity[]
+
   constructor(post: PostView) {
     this.post = post
 
@@ -102,6 +104,10 @@ export class Post {
 
     if ('facets' in this.record && 'text' in this.record) {
       this.facets = this.record.facets as BlueSky.AppBskyRichtextFacet.Main[]
+    }
+
+    if ('entities' in this.record && 'text' in this.record) {
+      this.entities = this.record.entities as BlueSky.AppBskyFeedPost.Entity[]
     }
   }
 
