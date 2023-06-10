@@ -26,6 +26,13 @@ app.set('view engine', '.hbs')
 app.use(express.json())
 app.use(express.static('public'))
 
+app.use(
+  '/.well-known',
+  express.static('.well-known', {
+    setHeaders: (res) => res.setHeader('Content-Type', 'application/json'),
+  })
+)
+
 const agent = new BlueSky.BskyAgent({
   service: 'https://bsky.social',
 })

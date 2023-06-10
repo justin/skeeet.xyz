@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "7B7LC48KU7.com.justinwme.skylines.app"
+        ],
+        "components": [
+          {
+            "/": "/profile/*",
+            "comment": "Matches any URL whose path starts with /profile/"
+          }
+        ]
+      }
+    ]
+  }
+}
