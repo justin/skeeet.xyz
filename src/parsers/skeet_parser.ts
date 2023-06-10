@@ -40,21 +40,34 @@ const defaultLang = `en-US`
 type ThreadViewPost = BlueSky.AppBskyFeedDefs.ThreadViewPost
 type PostView = BlueSky.AppBskyFeedDefs.PostView
 
-export async function parseSkeet(url: string, agent: BlueSky.BskyAgent, locale = defaultLang): Promise<SkeetPayload> {
+export async function parseSkeetURL(
+  url: string,
+  agent: BlueSky.BskyAgent,
+  locale = defaultLang
+): Promise<SkeetPayload> {
   const parsedUrl = new URL(url)
   const path = parsedUrl.pathname
   const parts = path.split('/')
   const actor = parts[2]
   const id = parts[4]
+  console.debug(`Attempting to build OG tags for ${parsedUrl}`)
+
+  return parseSkeet(actor, id, agent, locale)
+}
+
+export async function parseSkeet(
+  handle: string,
+  id: string,
+  agent: BlueSky.BskyAgent,
+  locale = defaultLang
+): Promise<SkeetPayload> {
   let parsedLocale = locale.includes(',') ? locale.split(',')[0] : locale
 
   if (parsedLocale.includes('*')) {
     parsedLocale = defaultLang
   }
 
-  console.debug(`Attempting to build OG tags for ${parsedUrl}`)
-
-  const profileResult = await agent.getProfile({ actor: actor })
+  const profileResult = await agent.getProfile({ actor: handle })
   const profile = new Profile(profileResult.data)
 
   const did = profile.did
