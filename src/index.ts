@@ -3,10 +3,11 @@ import * as dotenv from 'dotenv'
 import express from 'express'
 import { create } from 'express-handlebars'
 import { exit } from 'process'
-import { parseSkeet } from './parsers/skeet_parser.js'
+import { parseSkeet, parseSkeetURL } from './parsers/skeet_parser.js'
 import { parseProfile } from './parsers/profile_parser.js'
 import { formattedPostText } from './utils/rich_text_helper.js'
 import Handlebars from 'handlebars'
+import { Profile } from './types/profile.js'
 
 dotenv.config()
 
@@ -51,7 +52,7 @@ app.post('/api/skeet', async (req, res) => {
   }
 
   try {
-    const result = await parseSkeet(url, agent, req.headers['accept-language'])
+    const result = await parseSkeetURL(url, agent, req.headers['accept-language'])
     res.json(result)
   } catch (err) {
     res.status(400).send(`Invalid URL ${url} ${err}`)
@@ -90,7 +91,7 @@ app.get('/', async (req, res) => {
         break
       }
       default: {
-        const result = await parseSkeet(url, agent, req.headers['accept-language'])
+        const result = await parseSkeetURL(url, agent, req.headers['accept-language'])
         res.render('skeet', {
           skeet: result,
         })
@@ -99,6 +100,38 @@ app.get('/', async (req, res) => {
     }
   } catch (err) {
     res.status(400).send(`Invalid URL ${url} ${err}`)
+  }
+})
+
+app.get('/profile/:handle', async (req, res) => {
+  const handle = req.params.handle
+
+  try {
+    const profileResponse = await agent.getProfile({ actor: handle })
+    if (profileResponse.success) {
+      const profile = new Profile(profileResponse.data)
+      res.render('profile', { profile: profile, layout: false })
+    } else {
+      console.error(`Failed to get profile for ${handle}`)
+      throw new Error(`Failed to get profile for ${handle}`)
+    }
+  } catch (err) {
+    res.status(400).send(err)
+  }
+})
+
+app.get('/profile/:handle/post/:pid', async (req, res) => {
+  const handle = req.params.handle
+  const pid = req.params.pid
+
+  try {
+    const result = await parseSkeet(handle, pid, agent, req.headers['accept-language'])
+    res.set('Content-Type', 'text/html; charset=UTF-8')
+    res.render('skeet', {
+      skeet: result,
+    })
+  } catch (err) {
+    res.status(400).send(err)
   }
 })
 
