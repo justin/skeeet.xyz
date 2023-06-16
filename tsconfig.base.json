@@ -14,9 +14,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["@types/node"],
-    "allowJs": true
+    "forceConsistentCasingInFileNames": true
   },
   "exclude": ["node_modules", "lib"]
 }
