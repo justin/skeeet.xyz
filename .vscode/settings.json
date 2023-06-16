@@ -19,23 +19,24 @@
     },
     "**/.DS_Store": true,
     "**/.git": true,
-    "**/.hg": true,
     "**/.svn": true,
-    "**/coverage": true,
+    "**/.hg": true,
     "**/CVS": true,
+    "**/coverage": true,
     "**/lib": true,
     "**/node_modules": true,
     "**/Thumbs.db": true,
     "**/tsconfig.tsbuildinfo": true
   },
+  "jest.jestCommandLine": "npm test --",
+  "jest.nodeEnv": {
+    "NODE_OPTIONS": "--experimental-vm-modules"
+  },
   "prettier.configPath": "./.prettierrc",
   "prettier.ignorePath": "./.prettierignore",
   "prettier.prettierPath": "./node_modules/prettier",
+  "typescript.tsdk": "./node_modules/typescript/lib",
   "typescript.implementationsCodeLens.enabled": true,
   "typescript.referencesCodeLens.enabled": true,
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  "vitest.commandLine": "npm run test:watch --",
-  "vitest.changeBackgroundColor": true,
-  "vitest.showFailMessages": false,
-  "vitest.enable": true
+  "jest.rootPath": "./src"
 }

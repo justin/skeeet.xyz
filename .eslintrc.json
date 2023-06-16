@@ -10,7 +10,7 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "tsconfigRootDir": ".",
-    "project": ["./tsconfig.test.json"],
+    "project": ["./tsconfig.jest.json"],
     "ecmaVersion": "latest",
     "sourceType": "module"
   },

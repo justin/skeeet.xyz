@@ -1,5 +1,4 @@
 import { formattedRelativeDate } from '../../src/utils/relative_dates'
-import { describe, it, expect } from 'vitest'
 
 describe('formattedRelativeTime', () => {
   const now = new Date()
