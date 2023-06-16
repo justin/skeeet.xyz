@@ -141,8 +141,19 @@ describe('Skeet Parsing', () => {
       )
     })
   })
+
   describe('Parent Skeet Parsing', () => {
-    it('should parse the parent reply for a skeet', async () => {
+    it('should parse the parent reply for a skeet with only text', async () => {
+      const result = await parseSkeetURL('https://bsky.app/profile/msh.blue/post/3jw4f2qhmct2c', agent)
+      expect(result).toBeDefined()
+
+      const parent = result.parentPost
+      expect(parent).toBeDefined()
+      expect(parent?.handle).toBe('natanael.bsky.social')
+      expect(parent?.text.length).toBeGreaterThan(0)
+    })
+
+    it('should parse the parent reply for a skeet with only media', async () => {
       const result = await parseSkeetURL('https://bsky.app/profile/bnb.im/post/3jw3zhvyetg2u', agent)
       expect(result).toBeDefined()
 

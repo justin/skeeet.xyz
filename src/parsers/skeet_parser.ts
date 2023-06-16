@@ -1,5 +1,4 @@
 import * as BlueSky from '@atproto/api'
-import linkifyStr from 'linkify-string'
 import { Profile } from '../types/profile'
 import { Post, PostImage } from '../types/post'
 
@@ -91,18 +90,12 @@ export async function parseSkeet(
       parent = new Post(parentView)
     }
 
-    const links = {
-      validate: {
-        url: (value: string) => /^(http|https):\/\//.test(value),
-      },
-    }
-
     const options = {
       post: post,
       title: `${profile.displayName} (${profile.handle})`,
       displayName: profile.displayName,
       handle: profile.handle,
-      text: linkifyStr(post.text, links),
+      text: post.text,
       isoDate: post.dateCreated?.toISOString(),
       metaText: post.metaText,
       relativeDate: post.formattedRelativeDate(),
@@ -116,18 +109,18 @@ export async function parseSkeet(
       externalLink: post.externalLink ? post.externalLink.toPayload() : undefined,
       parentPost: parent
         ? {
-            post: parent.post,
+            post: parent,
             title: `${parent.profile.displayName} (${parent.profile.handle})`,
             displayName: parent.profile.displayName,
             handle: parent.profile.handle,
-            text: linkifyStr(parent.text, links),
+            text: parent.text,
             relativeDate: parent.formattedRelativeDate(),
             date: parent.formattedDate(parsedLocale),
             time: parent.formattedTime(parsedLocale),
             avatar: parent.profile.avatar,
             link: parent.url.toString(),
-            likes: 0,
-            reskeets: 0,
+            likes: parent.post.likeCount ?? 0,
+            reskeets: parent.post.repostCount ?? 0,
             images: parent.images,
             externalLink: post.externalLink,
             quotedPost: parent.quotedPost
