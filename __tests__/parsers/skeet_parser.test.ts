@@ -64,12 +64,12 @@ describe('Skeet Parsing', () => {
   describe('Image Parsing', () => {
     it('should parse a skeet with an image', async () => {
       const result = await parseSkeetURL(
-        'https://staging.bsky.app/profile/chinchillazilla.hellthread.vet/post/3jvhqs4j6kw2n',
+        'https://staging.bsky.app/profile/ankhmorporkcity.watch/post/3jvhqs4j6kw2n',
         agent
       )
       expect(result).toBeDefined()
-      expect(result.title).toBe('Chinchillazilla (chinchillazilla.hellthread.vet)')
-      expect(result.link).toBe('https://bsky.app/profile/chinchillazilla.hellthread.vet/post/3jvhqs4j6kw2n')
+      expect(result.title).toBe('Chinchillazilla (ankhmorporkcity.watch)')
+      expect(result.link).toBe('https://bsky.app/profile/ankhmorporkcity.watch/post/3jvhqs4j6kw2n')
       expect(result.avatar).toBeDefined()
       expect(result.images.length).toBe(1)
       expect(result.text).toContain("Here is an artist's rendering, anyway.")
@@ -77,7 +77,7 @@ describe('Skeet Parsing', () => {
     })
 
     it('should parse a reskeet with an image', async () => {
-      const result = await parseSkeetURL('https://bsky.app/profile/rachelskirts.bsky.social/post/3jw3uhuq2w32j', agent)
+      const result = await parseSkeetURL('https://bsky.app/profile/rachelskirts.com/post/3jw3uhuq2w32j', agent)
       expect(result).toBeDefined()
       expect(result.images.length).toBe(1)
 
@@ -159,7 +159,7 @@ describe('Skeet Parsing', () => {
 
       const parent = result.parentPost
       expect(parent).toBeDefined()
-      expect(parent?.handle).toBe('rachelskirts.bsky.social')
+      expect(parent?.handle).toBe('rachelskirts.com')
       expect(parent?.images.length).toBe(1)
     })
   })

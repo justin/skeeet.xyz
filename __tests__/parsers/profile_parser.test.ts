@@ -17,7 +17,7 @@ describe('Parsing profiles', () => {
     expect(result.success).toBe(true)
   })
   it('parse a user profile', async () => {
-    const profile = await parseProfile('https://staging.bsky.app/profile/chinchillazilla.hellthread.vet', agent)
+    const profile = await parseProfile('https://staging.bsky.app/profile/ankhmorporkcity.watch', agent)
     expect(profile).toBeDefined()
 
     expect(profile.displayName.length).toBeGreaterThan(0)
